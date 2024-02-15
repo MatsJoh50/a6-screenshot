@@ -1,21 +1,23 @@
+
 const puppeteer = require('puppeteer');
 
-async function runTest() {
-const browser = await puppeteer.launch({
-    headless: false,
-    timeout: 100000
-});
+async function run() {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-const page = await browser.newPage();
-const url = 'https://stackoverflow.com/questions/47616985/node-puppeteer-take-screenshot-full-page-spa';
 
-await page.goto(url, {
-    waitUntil: 'networkidle2'
-});
-await page.waitFor(500);
+//ENTER THE SITE YOU WANT TO SCREENSHOT
 
-await page.screenshot({ path: 'fullpage.png', fullPage: true });
-browser.close();
+    const url = 'https://www.lernia.se'
+
+//======================================
+
+    const [, saveFile] = url.split('.');
+    await page.goto(`${url}`);
+
+  await page.screenshot({ path: `${saveFile}.png`, fullPage: true });
+
+  browser.close();
 }
 
-runTest();
+run();
